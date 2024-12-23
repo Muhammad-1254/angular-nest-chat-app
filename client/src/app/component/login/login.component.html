@@ -1,0 +1,47 @@
+<section class="w-full h-full flex flex-col items-center justify-center gap-5">
+  <h3 class="text-lg ">
+    Welcome back to the secure chat application. Please login to continue.
+  </h3>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()"
+  class="flex flex-col gap-y-3.5"
+  >
+    <div class="w-[300px] flex flex-col gap-1">
+      <label for="email"
+      class="text-sm font-semibold"
+      >E-mail</label>
+      @if(emailIsInvalid){
+        <p class="text-red-500 text-base font-semibold -mb-1">
+          Please enter a valid email address.
+        </p>
+      }
+      <input type="email" id="email" [formControl]="form.controls.email"
+      class="w-full rounded px-2 py-1 text-black"
+      />
+    </div>
+    <div  class="w-[300px] flex flex-col gap-1">
+      <label for="password"    class="text-sm font-semibold">Password</label>
+      @if(passwordIsInvalid){
+        <p class="text-red-500 text-base font-semibold -mb-1">">
+          Password length should be greater than 6.
+        </p>
+      }
+      <input type="password" id="password" formControlName="password"
+      class="w-full rounded px-2 py-1 text-black"
+
+      />
+    </div>
+    @if(error()){
+    <div class="text-red-500 font-semibold -mt-2.5">
+      {{ error() }}
+    </div>
+    }
+    <button type="submit" [disabled]="loading()"
+    class="w-[60%] py-2.5 mx-auto rounded-xl cursor-pointer bg-neutral-500 hover:bg-neutral-600 duration-100 ease-linear"
+    >
+      {{ loading() ? "loading..." : "Login" }}
+    </button>
+  </form>
+  <div>
+    <p>Don't have an account? <a href="/register" class="text-blue-500 cursor-pointer font-semibold hover:text-blue-600 duration-100 ease-in">Register here</a></p>
+  </div>
+</section>

@@ -1,0 +1,52 @@
+<div
+  class="absolute left-0 bottom-0 -z-10 w-full h-[75px] bg-transparent opacity-30"
+></div>
+<div class="w-[90%] md:w-[80%] h-[75px] flex mx-auto z-10 pt-1.5">
+  <input
+    type="text"
+    placeholder="Type a message..."
+    [(ngModel)]="messageInput"
+    class="w-full h-10 px-2.5 py-1.5 text-black rounded-l-lg"
+  />
+
+  <button
+    class="w-[10%] md:w-[15%] h-10 rounded-r-lg bg-neutral-500 hover:bg-neutral-600 duration-150 ease-linear text-white font-semibold"
+    type="button"
+    (click)="sendMessageHandler()"
+  >
+    Send
+  </button>
+  <div
+    class="h-10 w-10 flex items-center justify-center rounded-full overflow-hidden ml-5 bg-neutral-500 hover:bg-neutral-600 duration-100 ease-linear"
+  >
+    <input
+      type="file"
+      (change)="onFileInputChangeHandler($event)"
+      #fileUpload
+      multiple
+      hidden
+      accept="image/*,video/*,.pdf"
+      />
+    <button
+      (click)="fileUpload.click()"
+      class="w-full h-full flex items-center justify-center"
+    >
+      <mat-icon class="">attach_file</mat-icon>
+    </button>
+  </div>
+
+  @if(selectedFiles().length > 0){
+  <button
+    (click)="sendFileHandler()"
+    class="px-10 py-2 absolute bottom-24 right-20 z-30 rounded bg-green-500 hover:bg-green-600 duration-150 ease-linear"
+  >
+    Send
+  </button>
+
+  }
+</div>
+
+<app-input-files-preview
+  [selectedFiles]="selectedFiles()"
+  (removeFile)="removeFilesHandler($event)"
+/>

@@ -1,0 +1,48 @@
+<div
+  [ngStyle]="{
+    transform:
+      selectedFiles().length > 0 ? 'translateY(-75px)' : 'translateY(100%)'
+  }"
+  class="absolute left-0 bottom-0 w-full h-[calc(100%-75px)] overflow-auto flex flex-col items-center gap-y-4 p-4 border border-red-600 bg-neutral-950
+  duration-250 ease-in
+  "
+>
+  @for(file of selectedFiles();track file.file){
+  <div
+    class="relative w-[80%] md:w-[40%] min-h-max aspect-square flex items-center justify-center overflow-hidden rounded bg-neutral-900/80"
+  >
+    @if(file.file.type.includes('image')){
+    <img
+      [src]="file.preview"
+      [alt]="file.file.name"
+      class="w-full object-center bg-center rounded"
+    />
+    }@else if(file.file.type.includes('video')){
+    <video
+      [src]="file.preview"
+      class="w-full h-full object-cover bg-center"
+      autoplay
+      controls
+    ></video>
+
+    }@else{
+    <a
+      [href]="file.preview"
+      [download]="file.file.name"
+      class="w-full h-full flex items-center justify-center bg-neutral-500 text-white font-semibold"
+    >
+      <mat-icon class="text-3xl">attach_file</mat-icon>
+      <p class="text-lg font-bold text-white/90">{{ file.file.name }}</p>
+    </a>
+
+    }
+    <!-- remove btn -->
+    <button
+      (click)="removeFileHandler($index)"
+      class="absolute top-0 right-0 w-8 h-8 flex items-center justify-center rounded bg-neutral-500 hover:bg-neutral-600 duration-150 ease-linear"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  }
+</div>

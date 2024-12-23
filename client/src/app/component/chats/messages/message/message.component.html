@@ -1,0 +1,110 @@
+<div
+  [ngStyle]="{
+    'justify-content':
+      myUserId() === message().userId ? 'flex-end' : 'flex-start'
+  }"
+  class="relative w-full h-full flex px-4"
+>
+  <div
+    [ngStyle]="{
+      aspectRatio: mediaMeta().aspectRatio,
+      paddingBottom: message().textContent ? '16px' : '24px',
+      paddingTop: message().textContent ? '8px' : '0px',
+      paddingLeft: message().textContent ? '8px' : '0px',
+      paddingRight: message().textContent ? '8px' : '0px',
+
+    }"
+    class="relative min-w-[60px] max-w-[300px] max-h-[300px] bg-purple-500 overflow-hidden pb-6 my-3 rounded-lg flex flex-col gap-y-1"
+  >
+    @if(message().textContent){
+    <p class="">{{ message().textContent }}</p>
+    }@else if(message().mediaType?.includes('image')){
+    <img
+      [src]="message().mediaContent"
+      [alt]="message().mediaContent"
+      class="w-full h-full rounded object-cover bg-center"
+    />
+    }@else if(message().mediaType?.includes('video')){
+    <div class="w-[300px] h-[300px] overflow-hidden">
+      <video
+        [src]="message().mediaContent"
+        class="w-full h-full object-cover bg-center"
+        controls
+      ></video>
+    </div>
+    }@else if(message().mediaType?.includes('application/pdf')){
+    <div class="w-[300px] h-[300px] overflow-hidden">
+      <a
+        [href]="message().mediaContent"
+        [download]="message().mediaContent"
+        target="_blank"
+        class="relative w-full h-full flex items-center justify-center bg-neutral-500 text-white font-semibold"
+      >
+        <mat-icon class="text-[60px]">picture_as_pdf</mat-icon>
+        <p
+          class="w-full absolute left-1.5 bottom-1.5 text-lg font-semibold text-white/90"
+        >
+          {{ getDocsName(message().mediaContent!) }}
+        </p>
+      </a>
+    </div>
+
+    }
+
+    <!-- footer -->
+    <div
+      [ngStyle]="{ height: message().textContent ? '16px' : '24px',
+      justifyContent: message().textContent? 'flex-end' : 'space-between'
+      }"
+      class="absolute w-full flex items-center justify-between h-6 left-0 bottom-0 rounded-b-l bg-orange-500"
+    >
+      @if(message().mediaContent ){
+      <p
+        class="w-[calc(100%-40px)] pl-1 overflow-hidden text-ellipsis text-nowrap"
+      >
+        {{ getDocsName(message().mediaContent!) }}
+      </p>
+
+
+      }
+
+      @if(message().userId===myUserId()){
+      <div class=" flex items-center gap-x-1 bg-red-600 ">
+        @if(message().sentAt){
+          <p class="text-xs">{{getMessageDate(message().sentAt!)}}</p>
+        }
+
+
+        @if(message().sentAt && message().deliveredAt){
+        <mat-icon
+          class="text-sm"
+          [ngStyle]="{ color: message().seenAt ? 'blue' : 'white' }"
+          >done_all</mat-icon
+        >
+        }@else if(message().sentAt){
+        <mat-icon
+          class="text-sm"
+          [ngStyle]="{ color: message().seenAt ? 'blue' : 'white' }"
+          >done</mat-icon
+        >
+        }
+      </div>
+      }
+    </div>
+
+    <!-- show if message is dummy -->
+    <!-- @ts-ignore -->
+    @if(message().hasOwnProperty('isDummy')){
+    <div
+      class="w-full h-full bg-neutral-900/70 z-50 absolute left-0 top-0 rounded-lg flex items-center justify-center"
+    >
+      @if(!message().textContent){
+      <span class="flex flex-col items-center justify-center">
+        <mat-icon class="text-3xl -ml-2.5">uploading</mat-icon>
+        <p>Uploading...</p>
+      </span>
+      }
+    </div>
+    }
+  </div>
+</div>

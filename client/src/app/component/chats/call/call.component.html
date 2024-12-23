@@ -1,0 +1,31 @@
+<div class="min-w-[500px] min-h-[380px]   relative">
+
+<!-- header  -->
+<div class="w-full h-8 bg-red-600">
+<h3>title here</h3>
+</div>
+
+
+<div class="w-full h-full p-2.5">
+
+<div>
+  <video #localVideo autoplay muted></video>
+</div>
+<div>
+  <video #remoteVideo autoplay></video>
+</div>
+
+
+
+</div>
+
+<mat-dialog-actions>
+  <!-- [mat-dialog-close]="isConnected()" -->
+<button
+  (click)="startCall()"
+    class="px-3.5 py-1.5 rounded-lg bg-green-500 "
+    >start call</button>
+
+  </mat-dialog-actions>
+
+</div>

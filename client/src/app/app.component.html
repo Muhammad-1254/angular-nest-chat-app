@@ -1,0 +1,29 @@
+<main
+class="flex w-screen h-screen flex-col overflow-hidden">
+@if(isLoading()){
+
+  <div class="w-full h-full flex items-center justify-center text-2xl font-semibold">
+    <p>loading...</p>
+  </div>
+
+
+} @else{
+<app-header />
+   <div
+   class="flex w-full  h-[calc(100%-48px)] bg-neutral-400"
+   >
+     @if(isUserLoggedIn()){
+      <div class="w-[300px] h-full">
+        <div class="w-full h-[calc(100%-60px)]">
+          <app-chat-list />
+        </div>
+        <app-user/>
+      </div>
+      }
+      <div class="w-[calc(100%-300px)] h-full ">
+        <router-outlet />
+
+      </div>
+    </div>
+  }
+</main>

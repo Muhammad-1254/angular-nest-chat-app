@@ -1,0 +1,49 @@
+<header
+  class="w-full h-12 bg-neutral-500 flex justify-between items-center px-5"
+>
+  <h1 class="w-[300px] text-xl font-bold">
+    <a href="/"> Chat app </a>
+  </h1>
+
+  @if(chat()){
+
+  <nav
+    class="w-[calc(100%-300px)] h-full flex items-center justify-between border border-red-600"
+  >
+    <a
+      class="h-[90%] aspect-square overflow-hidden rounded-full cursor-pointer"
+      [routerLink]="['/chats', 4, 'details']"
+    >
+      <img class="w-full h-full object-center bg-center" src="/favicon.ico" />
+    </a>
+    <ul class="flex items-center">
+      <li
+        class="w-12 h-9 flex items-center justify-center cursor-pointer bg-neutral-400 hover:bg-neutral-600 duration-150 ease-linear rounded-l-lg"
+      >
+        <mat-icon>call</mat-icon>
+      </li>
+      <li
+        class="w-12 h-9 flex items-center justify-center cursor-pointer bg-neutral-400 hover:bg-neutral-600 duration-150 ease-linear rounded-r-lg"
+      >
+      <a [routerLink]="['chats', chat()?.id?.toString(), 'call']" [queryParams]="{ type: 'video' }">
+
+        <!-- <button (click)="openDialog()"> -->
+          <mat-icon s>videocam</mat-icon>
+        <!-- </button> -->
+      </a>
+      </li>
+      <li
+        class="w-12 h-9 flex items-center justify-center cursor-pointer bg-neutral-400 hover:bg-neutral-600 duration-150 ease-linear rounded-lg ml-4"
+      >
+        <mat-icon class="">search</mat-icon>
+      </li>
+      <li
+      class="w-12 h-9 flex items-center justify-center cursor-pointer bg-neutral-400 hover:bg-neutral-600 duration-150 ease-linear rounded-lg ml-8"
+    (click)="closeCurrentChat()">
+      <mat-icon>close</mat-icon>
+      </li>
+    </ul>
+  </nav>
+}
+
+</header>

@@ -1,0 +1,9 @@
+<section
+class="relative w-full h-full flex flex-col ">
+  <div   class=" w-full h-[calc(100%-75px)] overflow-hidden  bg-gray-400">
+    <app-messages [chat]="chat()" />
+  </div>
+<app-input [chatId]="chatId()"
+[toUserId]="toUserId()"
+/>
+</section>

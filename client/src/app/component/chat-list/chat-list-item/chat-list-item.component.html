@@ -1,0 +1,29 @@
+<a [routerLink]="['chats', chat().id]" routerLinkActive="active-chat"
+class="relative"
+>
+  <div class="w-full h-14 flex items-center gap-x-2.5 p-2.5
+  bg-neutral-500 hover:bg-neutral-600 ">
+    <div class="h-full aspect-square overflow-hidden rounded-full ">
+      <img
+        [src]="
+          chat().users[0].avatarUrl ? chat().users[0].avatarUrl : '/favicon.ico'
+        "
+        alt="avatar"
+        class="w-full h-full object-cover bg-center"
+      />
+    </div>
+    <div class=" w-full flex flex-col justify-center">
+      <h3 class="text-white text-lg font-semibold text-nowrap overflow-hidden text-ellipsis">
+        {{ title() }}
+      </h3 >
+      <p class="text-gray-200 text-sm text-nowrap overflow-hidden text-ellipsis">
+        {{ description() }}
+      </p>
+      <p class="text-xs text-gray-300 text-nowrap overflow-hidden text-ellipsis
+      absolute right-1.5 bottom-1
+      ">
+        {{ lastMessageDate() }}
+      </p>
+    </div>
+  </div>
+</a>

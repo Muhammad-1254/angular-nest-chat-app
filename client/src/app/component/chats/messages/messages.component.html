@@ -1,0 +1,15 @@
+<div #messagesContainer class="w-full h-full overflow-y-scroll  bg-gray-400">
+  @if(chat()){ @for( message of chat()?.messages;track message.id ){
+  <div class="w-full justify-end">
+    <app-message [message]="message" [myUserId]="myUserId()!" />
+  </div>
+  } }
+
+  <!--  for showing that data is uploading -->
+  @for(dMessage of dummyMessages();track dMessage.id){
+    <div class="w-full justify-end">
+      <app-message [message]="dMessage" [myUserId]="myUserId()!" />
+    </div>
+  }
+
+</div>
