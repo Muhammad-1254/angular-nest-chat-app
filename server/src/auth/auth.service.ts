@@ -4,7 +4,7 @@ import { HttpException, Injectable } from '@nestjs/common';
 import { JsonWebTokenError, JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { ConfigService } from '@nestjs/config';
-import { CreateUserDto, LoginDto } from './dtos/create-user.dto';
+import { CreateUserDto, LoginDto, ChangePasswordDto } from './dtos/create-user.dto';
 
 import { v4 as uuid } from 'uuid';
 import { User } from 'src/database/entities';
@@ -79,6 +79,25 @@ export class AuthService {
       .cookie('refresh_token', refreshToken, cookieOptions)
       .status(200)
       .send({ accessToken, refreshToken });
+  }
+
+  async changePassword(res:Response, changePasswordDto:ChangePasswordDto){
+    // TODO: complete this feature
+    const user =await this.entityManager.findOne(User,{
+      where:{
+        email:changePasswordDto.email
+      }
+    })
+
+    if(!user){
+      return res.status(404)
+.send({message:"User not Found"})
+    }
+    const newPassword = await this.hashPassword(changePasswordDto.password)
+    user.password = newPassword
+   await  this.entityManager.save(user)
+   return res.status(200)
+   .send({message:"User updated Successfully!"})
   }
 
   async validateUser(

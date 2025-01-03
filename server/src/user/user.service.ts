@@ -83,6 +83,7 @@ async syncSavedUserGet(user: AuthUser, res: Response) {
       select: ['id', 'email', 'password'],
     });
     if (!user) {
+      console.log("user not found from secure: ",user)
       throw new Error('User not found');
     }
     return user;

@@ -24,6 +24,7 @@ export class LoginDto {
   password: string;
 }
 
+
 export class CreateUserDto {
   @IsEmail()
   @IsNotEmpty()
@@ -48,4 +49,17 @@ export class CreateUserDto {
   @IsString()
   @IsNotEmpty()
   phoneNumber: string;
+}
+
+
+export class ChangePasswordDto{
+  @IsString()
+  @IsNotEmpty()
+  email:string;
+
+
+  // TODO: complete this feature
+  @IsString()
+  @IsNotEmpty()
+  password:string
 }
